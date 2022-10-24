@@ -1,0 +1,39 @@
+.button {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: 100%;
+  background: #e8e8e8;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button_promo {
+  width: 96px;
+}
+
+.button__link {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+.button__link_promo {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  color: #fff;
+}
+
+@media screen and (max-width: 450px) {
+  .button_promo {
+    width: 82px;
+  }
+
+  .button__link_promo {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+}

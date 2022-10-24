@@ -1,0 +1,22 @@
+.promo {
+  margin-top: 20px;
+  min-height: calc(100vh - 94px);
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  margin-left: -30px;
+  margin-right: -30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-bottom: 30px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 600px) {
+  .promo {
+    margin: 14px 0 0;
+    min-height: calc(100vh - 88px);
+  }
+}

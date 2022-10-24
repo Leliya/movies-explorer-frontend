@@ -5,6 +5,7 @@
   width: 100vw;
   display: grid;
   grid-template-columns: 70px 1fr 70px;
+  grid-template-rows: repeat(3, min-content);
   grid-template-areas:
     ". header ."
     ". main ."

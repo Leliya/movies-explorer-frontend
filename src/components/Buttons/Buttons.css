@@ -1,0 +1,27 @@
+.buttons {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons_promo {
+  min-width: 308px;
+  height: 36px;
+  position: absolute;
+  bottom: 30px;
+  left:auto;
+}
+
+@media screen and (max-width: 600px) {
+  .buttons_promo {
+    bottom: 17px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .buttons_promo {
+    min-width: 258px;
+    height: 26px;
+  }
+}
