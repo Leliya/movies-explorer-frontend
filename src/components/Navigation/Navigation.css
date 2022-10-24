@@ -1,0 +1,22 @@
+.menu {
+  margin-left: 44px;
+}
+
+.menu_link-movies {
+  text-decoration: none;
+  color: #000;
+  margin-right: 16px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.menu_link-movies_active {
+  font-weight: 500;
+}
+
+@media screen and (max-width: 900px) {
+  .menu{
+    display: none;
+  }
+}
