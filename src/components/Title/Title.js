@@ -1,6 +1,8 @@
-function Title({children, section}) {
+function Title({ children, section }) {
   return (
-    <h1 className={`title title_${section}`}>{children}</h1>
+    { section } === "promo" ? 
+    <h1 className={`title title_${section}`}>{children}</h1> :
+    <h3 className={`title title_${section}`}>{children}</h3>
   )
 }
 
