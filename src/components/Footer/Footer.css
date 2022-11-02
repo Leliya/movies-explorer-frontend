@@ -1,0 +1,76 @@
+.footer {
+  grid-area: footer;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 80px 0 20px;
+}
+
+.footer__project-authors {
+  width: 100%;
+  text-align: center;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.2;
+  color: #a0a0a0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 20px;
+}
+
+.footer__copyright {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.2;
+  color: #000000;
+}
+
+.footer__author {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.2;
+  color: #000000;
+  text-align: right;
+}
+
+.footer__author-github {
+  text-decoration: none;
+  color: #000000;
+}
+
+@media screen and (max-width: 600px) {
+  .footer {
+    width: calc(100% - 20px);
+    margin: auto;
+    padding: 80px 0 10px;
+  }
+
+  .footer__project-authors {
+    font-size: 12px;
+    order: 1;
+    margin-bottom: 0;
+  }
+
+  .footer__copyright {
+    font-size: 12px;
+    color: #A0A0A0;
+    order: 3;
+    width: 100%;
+    text-align: center;
+  }
+
+  .footer__author {
+    width: 100%;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    order: 2;
+    margin: 30px 0;
+  }
+
+  .footer__author-github {
+    margin-top: 12px;
+  }
+}

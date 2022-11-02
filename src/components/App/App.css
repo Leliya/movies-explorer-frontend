@@ -3,13 +3,14 @@
   color:#000;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-weight: 400;
-  width: 100vw;
+  width: 100%;
   display: grid;
   grid-template-columns: 70px 1fr 70px;
   grid-template-rows: repeat(3, min-content);
   grid-template-areas:
     ". header ."
     ". main ."
+    ". movies ."
     ". footer .";
 }
 
@@ -19,6 +20,7 @@
     grid-template-areas:
       ". header header header ."
       ". . main . ."
+      ". movies movies movies ."
       ". footer footer footer .";
   }
 }
@@ -29,6 +31,7 @@
     grid-template-areas:
       ". header ."
       ". main ."
+      "movies movies movies"
       "footer footer footer";
   }
 }

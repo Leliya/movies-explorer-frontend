@@ -14,6 +14,10 @@
   width: 96px;
 }
 
+.button_techs {
+  width: 90px;
+}
+
 .button__link {
   margin: 0;
   padding: 0;
@@ -25,6 +29,34 @@
   font-size: 12px;
   line-height: 1.3;
   color: #fff;
+}
+
+.button__link_techs {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #000;
+}
+
+@media screen and (max-width: 900px) {
+  .button_techs {
+    width: calc(84/768*100vw);
+  }
+
+  .button__link_techs{
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .button_techs {
+    width: 84px;
+    height: 57px;
+  }
+
+  .button_promo {
+    border-radius: 6px;
+  }
 }
 
 @media screen and (max-width: 450px) {

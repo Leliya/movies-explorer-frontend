@@ -14,6 +14,21 @@
   grid-row: 1;
 }
 
+.section-title_techs{
+  width: calc(100% - 140px);
+}
+
+.section-title_about-me{
+  grid-row: 1;
+  grid-column: 1/-1;
+}
+
+@media screen and (max-width: 900px) {
+  .section-title_techs{
+    width: calc(100% - 100px);
+  }
+}
+
 @media screen and (max-width: 600px) {
   .section-title {
     font-size: 18px;
@@ -22,5 +37,9 @@
 
   .section-title_about-project{
     grid-column: 1;
+  }
+
+  .section-title_techs{
+    width: 100%;
   }
 }
