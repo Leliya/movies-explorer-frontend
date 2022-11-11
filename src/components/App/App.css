@@ -1,7 +1,7 @@
 .page {
   background-color: #fff;
-  color:#000;
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  color: #000;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-weight: 400;
   width: 100%;
   display: grid;
@@ -10,8 +10,14 @@
   grid-template-areas:
     ". header ."
     ". main ."
+    ". form ."
     ". movies ."
     ". footer .";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
 }
 
 @media screen and (max-width: 900px) {
@@ -20,6 +26,7 @@
     grid-template-areas:
       ". header header header ."
       ". . main . ."
+      ". . form . ."
       ". movies movies movies ."
       ". footer footer footer .";
   }
@@ -31,6 +38,7 @@
     grid-template-areas:
       ". header ."
       ". main ."
+      ". form ."
       "movies movies movies"
       "footer footer footer";
   }

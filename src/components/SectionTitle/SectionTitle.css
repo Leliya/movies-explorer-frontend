@@ -9,22 +9,22 @@
   letter-spacing: -0.04em;
 }
 
-.section-title_about-project{
+.section-title_about-project {
   grid-column: 1/-1;
   grid-row: 1;
 }
 
-.section-title_techs{
+.section-title_techs {
   width: calc(100% - 140px);
 }
 
-.section-title_about-me{
+.section-title_about-me {
   grid-row: 1;
   grid-column: 1/-1;
 }
 
 @media screen and (max-width: 900px) {
-  .section-title_techs{
+  .section-title_techs {
     width: calc(100% - 100px);
   }
 }
@@ -35,11 +35,11 @@
     padding: 0 0 28px 0;
   }
 
-  .section-title_about-project{
+  .section-title_about-project {
     grid-column: 1;
   }
 
-  .section-title_techs{
+  .section-title_techs {
     width: 100%;
   }
 }

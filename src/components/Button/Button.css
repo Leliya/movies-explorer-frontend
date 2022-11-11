@@ -3,7 +3,7 @@
   padding: 0;
   list-style: none;
   height: 100%;
-  background: #e8e8e8;
+  background-color: #e8e8e8;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -12,6 +12,19 @@
 
 .button_promo {
   width: 96px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.button_promo:hover {
+  cursor: pointer;
+  background-color: #a8a8a8;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.button_promo:active {
+  cursor: pointer;
+  background-color: #bbb;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .button_techs {
@@ -40,10 +53,10 @@
 
 @media screen and (max-width: 900px) {
   .button_techs {
-    width: calc(84/768*100vw);
+    width: calc(84 / 768 * 100vw);
   }
 
-  .button__link_techs{
+  .button__link_techs {
     font-size: 12px;
   }
 }

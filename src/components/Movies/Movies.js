@@ -1,13 +1,25 @@
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
+import './Movies.css'
 
-function Movies({cards}) {
+function Movies({ cards }) {
+  // Временный код для проверки состояния
+  const isSearch = false;
+  const testCardsEmpty = [];
+  //
   return (
-    <main className="main">
+    <main className="movies">
       <SearchForm />
-      <MoviesCardList cards={cards}/>
-    </main>
+      {isSearch ?
+        <Preloader /> :
+        <>
+          <MoviesCardList cards={testCardsEmpty} />
+          {cards > 0 ? <button type="button" className="movies__button">Ещё</button> : 
+          <></>}
+          </>}
+        </main>
   )
 }
 
-export default Movies;
+      export default Movies;

@@ -10,7 +10,7 @@
   height: 36px;
   position: absolute;
   bottom: 30px;
-  left:auto;
+  left: auto;
 }
 
 .buttons_techs {
@@ -20,8 +20,8 @@
 
 @media screen and (max-width: 900px) {
   .buttons_techs {
-    width: calc(648/768*100vw);
-    height: calc(57/768*100vw);
+    width: calc(648 / 768 * 100vw);
+    height: calc(57 / 768 * 100vw);
   }
 }
 

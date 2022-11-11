@@ -192,7 +192,7 @@ module.exports.testCards = [
     }
   },
   {
-    "id": 5,
+    "id": 10,
     "nameRU": "Taqwacore: The Birth of Punk IslamTaqwacore: The Birth of Punk IslamTaqwacore: The Birth of Punk Islam",
     "nameEN": "Taqwacore: The Birth of Punk Islam",
     "director": " Омар Маджид",
@@ -245,7 +245,7 @@ module.exports.testCards = [
     }
   },
   {
-    "id": 6,
+    "id": 11,
     "nameRU": "Фавела на взрыве",
     "nameEN": "Favela on Blast",
     "director": "Уэсли Пенц",
@@ -298,7 +298,7 @@ module.exports.testCards = [
     }
   },
   {
-    "id": 4,
+    "id": 12,
     "nameRU": "Bassweight",
     "nameEN": "Bassweight",
     "director": "Сурид Хассан",

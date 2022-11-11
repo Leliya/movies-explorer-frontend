@@ -1,4 +1,5 @@
-import SectionTitle from "../SectionTitle/SectionTitle"
+import SectionTitle from "../SectionTitle/SectionTitle";
+import './AboutProject.css';
 
 function AboutProject() {
   return (
@@ -13,10 +14,10 @@ function AboutProject() {
         <p className="about-project__text">У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
       </div>
       <div className="about-project__track">
-        <p className="about-project__track-back">1 неделя</p>
-        <p className="about-project__caption">Back-end</p>
-        <p className="about-project__track-front">4 недели</p>
-        <p className="about-project__caption">Front-end</p>
+        <span className="about-project__track-back">1 неделя</span>
+        <span className="about-project__caption" lang="en">Back-end</span>
+        <span className="about-project__track-front">4 недели</span>
+        <span className="about-project__caption" lang="en">Front-end</span>
       </div>
     </section>
   )

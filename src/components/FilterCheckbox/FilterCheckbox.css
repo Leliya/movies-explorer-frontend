@@ -14,6 +14,13 @@
   font-size: 13px;
   line-height: 1.4;
   color: #000000;
+  transition: text-shadow 0.2s ease-in-out;
+}
+
+.checkbox__label:hover {
+  cursor: pointer;
+  text-shadow: 1px 1px rgba(1, 1, 1, 0.2);
+  transition: text-shadow 0.2s ease-in-out;
 }
 
 .checkbox__button_hidden {
@@ -35,11 +42,24 @@
   transition: background-color 0.8s ease;
   display: flex;
   justify-content: flex-end;
+  transition: box-shadow 0.5s ease-in-out;
+}
+
+.checkbox__button:hover {
+  cursor: pointer;
+  box-shadow: 0 0 1px 1px #2be080;
+  transition: box-shadow 0.5s ease-in-out;
 }
 
 .checkbox__button_active {
   background-color: #ff4062;
-  transition: background-color 0.8s ease;
+  transition: background-color 0.8s ease, box-shadow 0.5s ease-in-out;
+}
+
+.checkbox__button_active:hover {
+  cursor: pointer;
+  box-shadow: 0 0 1px 1px rgba(255, 64, 98, 0.8);
+  transition: box-shadow 0.5s ease-in-out;
 }
 
 .checkbox__button-toggle {

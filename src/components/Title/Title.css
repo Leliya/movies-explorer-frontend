@@ -10,6 +10,7 @@
 .title_promo {
   width: 730px;
   text-align: center;
+  margin-bottom: 30px;
 }
 
 .title_techs {
@@ -39,6 +40,7 @@
 
   .title_promo {
     width: 400px;
+    margin-bottom: 5px;
   }
 
   .title_techs {

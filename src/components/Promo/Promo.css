@@ -16,6 +16,14 @@
 
 @media screen and (max-width: 600px) {
   .promo {
+    margin: 61px 0 0;
+    min-height: calc(100vh - 110px);
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+  .promo {
     margin: 14px 0 0;
     min-height: calc(100vh - 110px);
   }

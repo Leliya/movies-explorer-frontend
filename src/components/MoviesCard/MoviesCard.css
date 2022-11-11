@@ -1,6 +1,4 @@
 .card {
-  /* width: 360px;
-  height: 231px; */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -11,15 +9,15 @@
 .card__overlay {
   width: 100%;
   height: calc(100% - 30px);
-  visibility:hidden;
+  visibility: hidden;
   z-index: 3;
 }
 
-.card__overlay:hover{
-  visibility:visible;
+.card__overlay:hover {
+  visibility: visible;
 }
 
-.card__link{
+.card__link {
   width: 100%;
   z-index: 1;
 }
@@ -29,7 +27,7 @@
   height: 100%;
   object-fit: cover;
   border-radius: 6px;
-  visibility:visible;
+  visibility: visible;
 }
 
 .card__title {
@@ -79,15 +77,40 @@
   top: 14px;
   right: 14px;
   text-align: center;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
-.card__saved{
+
+.card__button:hover {
+  cursor: pointer;
+  background-color: #ff4062;
+  color: #fff;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.card__button:active {
+  opacity: 0;
+  color: transparent;
+  transition: opacity 0.1s ease-in-out 0.1s, color 0.1s ease-in-out;
+}
+
+.card__button_delete {
+  width: 21px;
+  height: 21px;
+  border-radius: 30px;
+  background-image: url("../../images/movie-delete.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.card__saved {
   width: 21px;
   height: 21px;
   position: absolute;
   border: none;
-  background: #FF4062;
+  background: #ff4062;
   border-radius: 12px;
-  background-image: url('../../images/movie-save.svg');
+  background-image: url("../../images/movie-save.svg");
   top: 14px;
   right: 14px;
   z-index: 5;
@@ -116,9 +139,18 @@
   .card__duration {
     margin: 0;
   }
+
+  .card__image {
+    height: 94%;
+  }
 }
 
 @media screen and (max-width: 600px) {
+  .card {
+    align-items: center;
+    row-gap: 16px;
+  }
+
   .card__link {
     height: calc(100% - 30px);
   }
@@ -127,6 +159,10 @@
     width: 80%;
     font-size: 12px;
   }
+
+  .card__image {
+    height: 100%;
+}
 }
 
 @media screen and (max-width: 400px) {
@@ -134,7 +170,8 @@
     width: calc((200 / 320) * 100vw);
     font-size: 12px;
   }
-  .card__saved{
+
+  .card__saved {
     top: 10px;
     right: 10px;
   }

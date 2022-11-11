@@ -36,7 +36,15 @@
 
 .footer__author-github {
   text-decoration: none;
+  padding-left: 16px;
   color: #000000;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.footer__author-github:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out;
 }
 
 @media screen and (max-width: 600px) {
@@ -54,7 +62,7 @@
 
   .footer__copyright {
     font-size: 12px;
-    color: #A0A0A0;
+    color: #a0a0a0;
     order: 3;
     width: 100%;
     text-align: center;
@@ -67,7 +75,7 @@
     display: flex;
     flex-direction: column;
     order: 2;
-    margin: 30px 0;
+    margin: 32px 0;
   }
 
   .footer__author-github {

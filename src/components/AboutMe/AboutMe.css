@@ -19,6 +19,9 @@
   grid-column: 3;
   height: 100%;
   width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  object-position: top;
 }
 
 .about-me__about {
@@ -45,6 +48,13 @@
   color: #000;
   margin: 0;
   margin-top: auto;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.about-me__github:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out;
 }
 
 @media screen and (max-width: 900px) {
@@ -74,24 +84,24 @@
     grid-template-rows: min-content 60px 352px 40px 261px 70px 224px;
     grid-template-columns: 100%;
   }
-  
+
   .about-me__bio {
     grid-row: 5;
     max-width: 415px;
   }
-  
+
   .about-me__photo {
     grid-row: 3;
     grid-column: 1;
-    object-fit: contain;
+    object-fit: cover;
   }
-  
+
   .about-me__about {
     font-size: 11px;
     line-height: 1.4;
     margin: 20px 0 20px;
   }
-  
+
   .about-me__history {
     font-size: 11px;
     line-height: 1.4;

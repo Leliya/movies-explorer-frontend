@@ -1,19 +1,17 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
+import './MoviesCardList.css';
 
-function MoviesCardList({cards}) {
+function MoviesCardList({ cards }) {
   return (
-    <>
-    <ul className="cardList">
-      {cards.length===0?<></>:
-      cards.map((item) => 
-      <MoviesCard 
-      card ={item}
-      key={item.id}
-      />
-      )}
-    </ul>
-    <button type="button" className="cardList__button">Ещё</button>
-    </>
+    cards.length === 0 ? <div className="cardList__empty"><span className="cardList__notFound">Фильмы не найдены</span></div> :
+      <ul className="cardList">
+        {cards.map((item) =>
+          <MoviesCard
+            card={item}
+            key={item.id}
+          />
+        )}
+      </ul>
   )
 }
 
