@@ -9,7 +9,7 @@ function PageWithForm({ title, name, children, buttonName, caption, path, link }
       <div className="page-with-form__container">
         <Logo />
         <h2 className="page-with-form__title">{title}</h2>
-        <form className="page-with-form__form" name={name} noValidate={true} id={name}>
+        <form className="page-with-form__form" name={name} id={name}>
           {children}
           <button className="page-with-form__button" type="submit">{buttonName}</button>
         </form>

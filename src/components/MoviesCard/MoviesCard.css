@@ -151,6 +151,10 @@
     row-gap: 16px;
   }
 
+  .card__overlay {
+    visibility: visible;
+  }
+
   .card__link {
     height: calc(100% - 30px);
   }

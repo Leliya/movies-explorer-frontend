@@ -6,7 +6,7 @@ import './Movies.css'
 function Movies({ cards }) {
   // Временный код для проверки состояния
   const isSearch = false;
-  const testCardsEmpty = [];
+  // const testCardsEmpty = [];
   //
   return (
     <main className="movies">
@@ -14,8 +14,8 @@ function Movies({ cards }) {
       {isSearch ?
         <Preloader /> :
         <>
-          <MoviesCardList cards={testCardsEmpty} />
-          {cards > 0 ? <button type="button" className="movies__button">Ещё</button> : 
+          <MoviesCardList cards={cards} />
+          {cards.length > 0 ? <button type="button" className="movies__button">Ещё</button> : 
           <></>}
           </>}
         </main>

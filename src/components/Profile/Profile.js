@@ -28,7 +28,7 @@ function Profile({ userName }) {
     <main className="profile">
       <div className="profile__container">
         <h2 className="profile__title">Привет, {userName}!</h2>
-        <form className="profile__form" name="profile" id="profile" noValidate={true}>
+        <form className="profile__form" name="profile" id="profile">
           <label className="profile__label" htmlFor='name'>
             Имя
             <input
