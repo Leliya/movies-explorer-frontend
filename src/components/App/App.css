@@ -1,0 +1,45 @@
+.page {
+  background-color: #fff;
+  color: #000;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 70px 1fr 70px;
+  grid-template-rows: repeat(3, min-content);
+  grid-template-areas:
+    ". header ."
+    ". main ."
+    ". form ."
+    ". movies ."
+    ". footer .";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+}
+
+@media screen and (max-width: 900px) {
+  .page {
+    grid-template-columns: 30px 20px 1fr 20px 30px;
+    grid-template-areas:
+      ". header header header ."
+      ". . main . ."
+      ". . form . ."
+      ". movies movies movies ."
+      ". footer footer footer .";
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .page {
+    grid-template-columns: 14px 1fr 14px;
+    grid-template-areas:
+      ". header ."
+      ". main ."
+      ". form ."
+      "movies movies movies"
+      "footer footer footer";
+  }
+}

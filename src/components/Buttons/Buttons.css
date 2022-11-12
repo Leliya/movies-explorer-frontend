@@ -1,0 +1,46 @@
+.buttons {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons_promo {
+  width: 308px;
+  height: 36px;
+  position: absolute;
+  bottom: 30px;
+  left: auto;
+}
+
+.buttons_techs {
+  width: 690px;
+  height: 60px;
+}
+
+@media screen and (max-width: 900px) {
+  .buttons_techs {
+    width: calc(648 / 768 * 100vw);
+    height: calc(57 / 768 * 100vw);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .buttons_promo {
+    bottom: 17px;
+  }
+
+  .buttons_techs {
+    width: 178px;
+    height: auto;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .buttons_promo {
+    width: 258px;
+    height: 26px;
+  }
+}

@@ -1,0 +1,62 @@
+.popup {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  transition: visibility 0s ease-in-out 0.5s, opacity 0.5s ease-in-out;
+}
+
+.popup__container {
+  width: 250px;
+  height: 250px;
+  background-color: #fff;
+  border: 3px solid #ff4062;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.popup_opened {
+  visibility: visible;
+  opacity: 1;
+  transition: visible 0s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.popup__button-close {
+  width: 15px;
+  height: 15px;
+  background: none;
+  border: none;
+  background-image: url("../../images/movie-delete.svg");
+  position: absolute;
+  filter: invert(1);
+  top: -20px;
+  right: -20px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.popup__button-close:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.popup__message {
+  width: 80%;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #ff4062;
+  margin: 0;
+  text-align: center;
+}

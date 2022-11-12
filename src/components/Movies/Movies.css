@@ -1,0 +1,42 @@
+.movies {
+  width: 100%;
+  grid-area: movies;
+  display: flex;
+  flex-direction: column;
+}
+
+.movies__button {
+  margin: 50px auto 80px;
+  width: 320px;
+  height: 36px;
+  border: 1px solid #e8e8e8;
+  border-radius: 5px;
+  background: none;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.2;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.movies__button:hover {
+  cursor: pointer;
+  background-color: #e8e8e8;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.movies__button:active {
+  background-color: #fff;
+  transition: background-color 0.2s ease-in-out;
+}
+
+@media screen and (max-width: 600px) {
+  .movies {
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+
+  .movies__button {
+    width: 240px;
+  }
+}

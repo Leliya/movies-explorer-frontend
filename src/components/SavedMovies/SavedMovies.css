@@ -1,0 +1,14 @@
+.saved-movies {
+  width: 100%;
+  grid-area: movies;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 600px) {
+  .saved-movies {
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+}

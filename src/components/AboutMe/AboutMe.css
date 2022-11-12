@@ -1,0 +1,111 @@
+.about-me {
+  min-height: 1079px;
+  padding: 110px 0 125px;
+  display: grid;
+  grid-template-rows: min-content 66px 327px 100px 300px;
+  grid-template-columns: minmax(364px, 600px) minmax(50px, 1fr) 270px;
+  box-sizing: border-box;
+}
+
+.about-me__bio {
+  grid-row: 3;
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-me__photo {
+  grid-row: 3;
+  grid-column: 3;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  object-position: top;
+}
+
+.about-me__about {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.1;
+  mix-blend-mode: normal;
+  margin: 18px 0 26px;
+}
+
+.about-me__history {
+  margin: 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6;
+  mix-blend-mode: normal;
+}
+
+.about-me__github {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+  text-decoration: none;
+  color: #000;
+  margin: 0;
+  margin-top: auto;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.about-me__github:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out;
+}
+
+@media screen and (max-width: 900px) {
+  .about-me {
+    min-height: 994px;
+    padding: 90px 0;
+    grid-template-rows: min-content 66px 307px 90px 300px;
+    grid-template-columns: minmax(min-content, 460px) minmax(50px, 1fr) 255px;
+  }
+
+  .about-me__about {
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 18px 0;
+  }
+
+  .about-me__history {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .about-me {
+    min-height: 1198px;
+    padding: 70px 0;
+    grid-template-rows: min-content 60px 352px 40px 261px 70px 224px;
+    grid-template-columns: 100%;
+  }
+
+  .about-me__bio {
+    grid-row: 5;
+    max-width: 415px;
+  }
+
+  .about-me__photo {
+    grid-row: 3;
+    grid-column: 1;
+    object-fit: cover;
+    width: 292px;
+    justify-self: center;
+  }
+
+  .about-me__about {
+    font-size: 11px;
+    line-height: 1.4;
+    margin: 20px 0 20px;
+  }
+
+  .about-me__history {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+}
