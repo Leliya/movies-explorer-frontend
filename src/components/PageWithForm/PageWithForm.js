@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import './PageWithForm.css';
 
 
-function PageWithForm({ title, name, children, buttonName, caption, path, link }) {
+function PageWithForm({ title, name, children, buttonName, caption, path, link, onSubmit }) {
   return (
     <main className="page-with-form">
       <div className="page-with-form__container">
         <Logo />
         <h2 className="page-with-form__title">{title}</h2>
-        <form className="page-with-form__form" name={name} id={name}>
+        <form className="page-with-form__form" name={name} id={name} onSubmit={onSubmit}>
           {children}
           <button className="page-with-form__button" type="submit">{buttonName}</button>
         </form>
