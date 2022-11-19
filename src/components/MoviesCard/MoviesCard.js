@@ -25,7 +25,12 @@ function MoviesCard({ card, onSaveFilm, onDelete, cardsArrayCheck }) {
   }
 
   function handlerOnDelete() {
-    onDelete(card._id)
+    if (card._id){
+    onDelete(card._id)}
+    else{
+      let filmForDelete=cardsArrayCheck.find((savedFilms)=>card.id===savedFilms.movieId)
+      onDelete(filmForDelete._id)
+    }
   }
 
 

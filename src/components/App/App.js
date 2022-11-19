@@ -234,6 +234,7 @@ function App() {
                     isLoading={isLoading}
                     cardRender={cardRender}
                     onSaveFilm={handlerSaveFilm}
+                    onDelete={handlerDeleteFilm}
                     onChangeRequest={handlerChangeRequest}
                     onChangeDataSearch={handlerChangeDataSearch}
                   //request={dataSearch.request}

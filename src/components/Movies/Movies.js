@@ -5,7 +5,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import './Movies.css'
 
 // function Movies({ cards, saveCards, onSubmit, onCheck, isLoading, cardRender, checkbox, saveFilm, onChangeRequest, request}) {
-function Movies({ dataSearch, savedFilms, onSubmit, onCheck, isLoading, cardRender, checkbox, onSaveFilm, onChangeRequest, onChangeDataSearch }) {
+function Movies({ dataSearch, savedFilms, onSubmit, onCheck, isLoading, cardRender, checkbox, onSaveFilm, onDelete, onChangeRequest, onChangeDataSearch }) {
 
   const [visibleCards, setVisibleCards] = React.useState([]);
 
@@ -39,7 +39,7 @@ function Movies({ dataSearch, savedFilms, onSubmit, onCheck, isLoading, cardRend
       {isLoading ?
         <Preloader /> :
         <>
-          <MoviesCardList cardsArrayMain={visibleCards} onSaveFilm={onSaveFilm} cardsArrayCheck={savedFilms} />
+          <MoviesCardList cardsArrayMain={visibleCards} onSaveFilm={onSaveFilm} cardsArrayCheck={savedFilms} onDelete={onDelete}/>
           {visibleCards.length !== dataSearch.films.length ? <button type="button" className="movies__button" onClick={renderMoreCards}>Ещё</button> :
             <></>}
         </>}
