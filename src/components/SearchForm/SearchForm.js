@@ -3,13 +3,6 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import './SearchForm.css'
 
 function SearchForm({ onSubmit, checkbox, onCheck, onChangeRequest, request }) {
-
-  // const [request, setRequest] = React.useState("");
-
-  // React.useEffect(() => {
-  //   onChangeRequest('')
-  // }, [])
-
   function handlerChange(evt) {
     onChangeRequest(evt.target.value);
   }
@@ -31,7 +24,7 @@ function SearchForm({ onSubmit, checkbox, onCheck, onChangeRequest, request }) {
           value={request}
           onChange={handlerChange}>
         </input>
-        <button className="searchBar__button" type="submit" name="Отправить" ></button>
+        <button className="searchBar__button" type="submit" name="Отправить" disabled={!request}></button>
       </fieldset>
       <FilterCheckbox checkbox={checkbox} onCheck={onCheck} />
     </form>

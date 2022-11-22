@@ -8,12 +8,13 @@ function DetectCurrentWidth() {
   React.useEffect(() => {
     let timeout = null;
     
-
     const checkWidth = () => {
       clearTimeout(timeout);
       timeout = setTimeout(() => detectWidth(getWidth()), 150)
     }
+
     window.addEventListener('resize', checkWidth)
+    
     return () => {
       window.removeEventListener('resize', checkWidth);
     }

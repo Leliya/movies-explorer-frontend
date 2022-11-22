@@ -1,3 +1,5 @@
+import { BEATFILM_URL } from "../utils/const.js"
+
 class MoviesApi {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -5,7 +7,8 @@ class MoviesApi {
 
 
   _checkResponse(res) {
-    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}. ${res.body.message}`);
+    return res.ok ? res.json() :
+      Promise.reject(`Ошибка: ${res.status}. ${res.body.message}`);
   }
 
   getFilms = () => {
@@ -16,7 +19,7 @@ class MoviesApi {
 }
 
 const moviesApi = new MoviesApi({
-  baseUrl: "https://api.nomoreparties.co/beatfilm-movies",
+  baseUrl: BEATFILM_URL,
   headers: {
     "Content-Type": "application/json",
   },

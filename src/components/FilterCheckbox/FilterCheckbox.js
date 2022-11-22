@@ -1,12 +1,7 @@
 import React from "react";
 import './FilterCheckbox.css'
-//{handlerCheckbox}
-function FilterCheckbox({ checkbox, onCheck }) {
-  //const [currentChecked, setCurrentChecked] = React.useState(false)
 
-  // React.useEffect(() => {
-  //   localStorage.getItem('isShortFilms') ? setCurrentChecked(JSON.parse(localStorage.getItem('isShortFilms'))) : setCurrentChecked(checked)
-  // }, [checked])
+function FilterCheckbox({ checkbox, onCheck }) {
 
   return (
     <fieldset className="checkbox">

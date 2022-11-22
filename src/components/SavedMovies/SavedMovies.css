@@ -3,6 +3,7 @@
   grid-area: movies;
   display: flex;
   flex-direction: column;
+  min-height: calc(100vh - 246px);
 }
 
 @media screen and (max-width: 600px) {
@@ -10,5 +11,6 @@
     width: 100%;
     padding: 0 10px;
     box-sizing: border-box;
+    min-height: calc(100vh - 319px);
   }
 }

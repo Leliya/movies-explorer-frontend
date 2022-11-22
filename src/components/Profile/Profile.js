@@ -1,95 +1,80 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import './Profile.css'
+import useFormWithValidate from "../../utils/useFormWithValidate";
+import PopupWithError from '../PopupWithError/PopupWithError';
 
-function Profile({ userName, email, onSubmit, onSignout }) {
-  // Временный код для проверки состояния
-  const [isDisable, setIsDisabled] = React.useState(true);
-  const [nameInput, setName] = React.useState(userName);
-  const [emailInput, setEmail] = React.useState(email);
-  //const inputElement = React.useRef(null);
+function Profile({ onSubmit, onSignout, infoMessage, onClosePopup }) {
+  const currentUser = React.useContext(CurrentUserContext);
+  const validate = useFormWithValidate();
 
-  React.useEffect(() => {
-    setName(userName);
-    setEmail(email);
-  }, [userName, email])
-
-  function handleChangeName(evt) {
-    setName(evt.target.value)
-  }
-
-  function handleChangeEmail(evt) {
-    setEmail(evt.target.value)
-  }
-
-  function isEdit() {
-    setIsDisabled(!isDisable);
-    // if (isDisable === false) {
-    //   inputElement.current.focus()
-    // }
-  }
+  // React.useEffect(() => validate.resetForm(), [])
 
   function handlerSubmit(evt) {
     evt.preventDefault()
-    onSubmit(nameInput, emailInput)
-    //setIsDisabled(true);
+    if (!validate.values.name) {
+      validate.values.name = currentUser.name
+    } else if (!validate.values.email) {
+      validate.values.email = currentUser.email
+    }
+    onSubmit(validate.values)
   }
 
   return (
     <main className="profile">
       <div className="profile__container">
-        <h2 className="profile__title">Привет, {userName}!</h2>
+        <h2 className="profile__title">Привет, {currentUser.name}!</h2>
         <form className="profile__form" name="profile" id="profile" onSubmit={handlerSubmit}>
           <label className="profile__label" htmlFor='name'>
             Имя
             <input
-              className="profile__input"
-              value={nameInput}
+              className={validate.isValid.name ? "profile__input" : "profile__input profile__input_error"}
+              value={validate.values.name || ""}
               name="name"
               id="name"
               minLength={2}
               maxLength={30}
               type="text"
-              disabled={isDisable && true}
               autoFocus={true}
-              onChange={handleChangeName}
-            //ref={inputElement}
+              onChange={validate.handleChange}
+              placeholder={currentUser.name}
             >
             </input>
+            {validate.isValid.name ? <></> : <span className="profile__input-error">
+              {validate.errors.name}
+            </span>}
           </label>
           <label className="profile__label" htmlFor='email' lang="en">
             E-mail
             <input
-              className="profile__input"
-              value={emailInput}
+              className={validate.isValid.email ? "profile__input" : "profile__input profile__input_error"}
+              value={validate.values.email || ""}
               name="email"
               id="email"
               type="email"
-              disabled={isDisable && true}
-              onChange={handleChangeEmail}
+              onChange={validate.handleChange}
+              placeholder={currentUser.email}
             >
             </input>
+            {validate.isValid.email ? <></> : <span className="profile__input-error">
+              {validate.errors.email}
+            </span>}
           </label>
         </form>
         <div className="profile__buttons">
-          {isDisable ?
-            <button
-              className="profile__button"
-              type="submit"
-              form="profile"
-              onClick={isEdit}>
-              Редактировать
-            </button>
-            : <button
-            className="profile__button profile__button_edit"
-            type="button"
+          <button
+            className="profile__button"
+            type="submit"
             form="profile"
-            onClick={isEdit}>
-            Сохранить
-          </button>}
+
+            disabled={validate.isButtonDisable ? !(validate.values.name !== currentUser.name || validate.values.email !== currentUser.email) : true}>
+            Редактировать
+          </button>
           <Link className="profile__exit" to="/" onClick={onSignout}>Выйти из аккаунта</Link>
         </div>
       </div>
+      <PopupWithError infoMessage={infoMessage} onClose={onClosePopup} />
     </main>
   )
 }

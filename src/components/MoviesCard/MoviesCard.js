@@ -25,10 +25,11 @@ function MoviesCard({ card, onSaveFilm, onDelete, cardsArrayCheck }) {
   }
 
   function handlerOnDelete() {
-    if (card._id){
-    onDelete(card._id)}
-    else{
-      let filmForDelete=cardsArrayCheck.find((savedFilms)=>card.id===savedFilms.movieId)
+    if (card._id) {
+      onDelete(card._id)
+    }
+    else {
+      let filmForDelete = cardsArrayCheck.find((savedFilms) => card.id === savedFilms.movieId)
       onDelete(filmForDelete._id)
     }
   }
@@ -40,17 +41,14 @@ function MoviesCard({ card, onSaveFilm, onDelete, cardsArrayCheck }) {
         {<>
           <Route path="/movies">
             {isSaved ?
-              <div className="card__saved"  onClick={handlerOnDelete}></div> :
+              <div className="card__saved" onClick={handlerOnDelete}></div> :
               <button className="card__button" type="button" onClick={handlerOnSave}>
                 Сохранить
               </button>}
           </Route>
           <Route path="/saved-movies">
-            {/* {isSaved ?
-              <></> : */}
             <button className="card__button card__button_delete" type="button" aria-label='Удалить фильм' onClick={handlerOnDelete}>
             </button>
-             {/* } */}
           </Route>
         </>
         }
@@ -58,7 +56,6 @@ function MoviesCard({ card, onSaveFilm, onDelete, cardsArrayCheck }) {
           <img className="card__image" src={cardImage} alt={`Кадр из фильма "${card.nameRU}"`} />
         </a>
       </div>
-      {/* {isSaved ? <div className="card__saved"></div> : <></>} */}
       <h3 className="card__title">{card.nameRU}</h3>
       <span className="card__duration">{cardDuration}</span>
     </article>

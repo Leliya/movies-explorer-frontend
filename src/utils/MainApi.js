@@ -1,12 +1,27 @@
+import { MAIN_URL } from "../utils/const.js"
+
+let obj = {}
+
 class MainApi {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
+  }
 
+  _getResponse(res) {
+    obj = { ok: res.ok, status: res.status }
+    return res.json()
   }
 
   _checkResponse(res) {
-    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}. ${res.body.message}`);
+    if (obj.ok === false) {
+      if (obj.status === 401) {
+        return Promise.reject(res);
+      }
+      return Promise.reject(res);
+    }
+    obj = {}
+    return res
   }
 
   signup(userData) {
@@ -19,7 +34,8 @@ class MainApi {
         email: userData.email,
         password: userData.password,
       })
-    }).then(this._checkResponse)
+    }).then(this._getResponse)
+      .then(this._checkResponse)
   }
 
   signout() {
@@ -27,7 +43,8 @@ class MainApi {
       method: "POST",
       headers: this._headers,
       credentials: "include",
-    }).then(this._checkResponse)
+    }).then(this._getResponse)
+      .then(this._checkResponse)
   }
 
   signin(userData) {
@@ -39,33 +56,37 @@ class MainApi {
         email: userData.email,
         password: userData.password,
       })
-    }).then(this._checkResponse)
+    }).then(this._getResponse)
+      .then(this._checkResponse)
   }
 
   getUser() {
     return fetch(`${this._baseUrl}users/me`, {
       headers: this._headers,
       credentials: "include"
-    }).then(this._checkResponse);
+    }).then(this._getResponse)
+      .then(this._checkResponse)
   }
 
-  changeUserData(newName, newEmail) {
+  changeUserData(newUserInfo) {
     return fetch(`${this._baseUrl}users/me`, {
       method: "PATCH",
       headers: this._headers,
       credentials: "include",
       body: JSON.stringify({
-        name: newName,
-        email: newEmail,
+        name: newUserInfo.name,
+        email: newUserInfo.email,
       })
-    }).then(this._checkResponse)
+    }).then(this._getResponse)
+      .then(this._checkResponse)
   }
 
-  getSavedFilms(){
+  getSavedFilms() {
     return fetch(`${this._baseUrl}movies`, {
       headers: this._headers,
       credentials: "include"
-    }).then(this._checkResponse);
+    }).then(this._getResponse)
+      .then(this._checkResponse)
   }
 
   saveFilm(card) {
@@ -86,7 +107,8 @@ class MainApi {
         thumbnail: `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`,
         movieId: card.id,
       })
-    }).then(this._checkResponse)
+    }).then(this._getResponse)
+      .then(this._checkResponse)
   }
 
   deleteFilm(cardId) {
@@ -94,16 +116,16 @@ class MainApi {
       method: "DELETE",
       headers: this._headers,
       credentials: "include",
-    }).then(this._checkResponse)
+    }).then(this._getResponse)
+      .then(this._checkResponse)
   }
 }
-  const mainApi = new MainApi({
-    baseUrl: "http://localhost:3001/",
-    //baseUrl: "https://api.movies.leliya.nomoredomains.icu/",
-    headers: {
-      "Content-Type": "application/json",
-
-    },
-  });
+const mainApi = new MainApi({
+  baseUrl: "http://localhost:3001/",
+  //baseUrl: MAIN_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
 export default mainApi;

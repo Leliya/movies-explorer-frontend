@@ -10,7 +10,7 @@
 }
 
 .cardList__empty {
-  height: calc(100vh - 465px);
+  height: calc(100vh - 467px);
   width: 100%;
   display: flex; 
 }

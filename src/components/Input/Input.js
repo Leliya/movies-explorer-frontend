@@ -1,6 +1,6 @@
 import './Input.css';
 
-function Input({ type, name, label, isValid, autoFocus, onChange }) {
+function Input({ type, name, label, isValid, autoFocus, onChange, error, minSymbol, maxSymbol }) {
   return (
     <div className="field">
       <label className="field__label" htmlFor={`input-${name}`}>{label}</label>
@@ -11,10 +11,12 @@ function Input({ type, name, label, isValid, autoFocus, onChange }) {
         id={`input-${name}`}
         autoFocus={autoFocus}
         required={true}
-        onChange={onChange}>
+        onChange={onChange}
+        minLength={minSymbol}
+        maxLength={maxSymbol}>
       </input>
       {isValid ? <></> : <span className={`field__input-error ${name}-input-error`}>
-        Что-то пошло не так...
+       {error}
       </span>}
     </div>
   )

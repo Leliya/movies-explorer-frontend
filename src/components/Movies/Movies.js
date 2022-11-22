@@ -4,25 +4,25 @@ import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import './Movies.css'
 
-// function Movies({ cards, saveCards, onSubmit, onCheck, isLoading, cardRender, checkbox, saveFilm, onChangeRequest, request}) {
-function Movies({ dataSearch, savedFilms, onSubmit, onCheck, isLoading, cardRender, checkbox, onSaveFilm, onDelete, onChangeRequest, onChangeDataSearch }) {
-
+function Movies({
+  dataSearch,
+  savedFilms,
+  onSubmit,
+  onCheck,
+  isLoading,
+  cardRender,
+  onSaveFilm,
+  onDelete,
+  onChangeRequest,
+  onChangeDataSearch,
+  infoMessage }) {
   const [visibleCards, setVisibleCards] = React.useState([]);
 
   React.useEffect(() => {
     if (localStorage.getItem('prevSearch')) {
       onChangeDataSearch(JSON.parse(localStorage.getItem('prevSearch')))
     }
-
-    // return(()=>{
-    //   setDataSearch({ request: '', films: [], isShortFilms: false })
-    // })
-  }, []
-  )
-
-  // React.useEffect(() => {
-  //   onChangeRequest(localStorage.getItem('request'))
-  // }, [onChangeRequest])
+  }, [])
 
   React.useEffect(() => {
     setVisibleCards(dataSearch.films.slice(0, cardRender.start));
@@ -39,7 +39,7 @@ function Movies({ dataSearch, savedFilms, onSubmit, onCheck, isLoading, cardRend
       {isLoading ?
         <Preloader /> :
         <>
-          <MoviesCardList cardsArrayMain={visibleCards} onSaveFilm={onSaveFilm} cardsArrayCheck={savedFilms} onDelete={onDelete}/>
+          <MoviesCardList cardsArrayMain={visibleCards} onSaveFilm={onSaveFilm} cardsArrayCheck={savedFilms} onDelete={onDelete} infoMessage={infoMessage} />
           {visibleCards.length !== dataSearch.films.length ? <button type="button" className="movies__button" onClick={renderMoreCards}>Ещё</button> :
             <></>}
         </>}

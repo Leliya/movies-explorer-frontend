@@ -5,9 +5,6 @@ import Logo from "../Logo/Logo";
 import './Header.css';
 
 function Header({loggedIn}) {
-  // Временный код для проверки состояния
-
-
   const [isMenuOpened, setMenuOpened] = React.useState(false);
 
   function isClose() {
@@ -17,7 +14,6 @@ function Header({loggedIn}) {
   function isOpen() {
     setMenuOpened(true);
   }
-  //
 
   return (
     <header className="header">
