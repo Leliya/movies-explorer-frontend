@@ -16,7 +16,17 @@ import './App.css';
 import DetectCurrentWidth from "../../utils/detectWidth";
 import ProtectedRoute from '../ProtectedRoute.js/ProtectedRoute';
 import Preloader from '../Preloader/Preloader';
-import { DEFAULT_MESSAGE, SUCCESS_CHANGE_MESSAGE, REQUEST_EMPTY_MESSAGE, ERROR_AUTH } from '../../utils/const';
+import { 
+  DEFAULT_MESSAGE, 
+  SUCCESS_CHANGE_MESSAGE, 
+  REQUEST_EMPTY_MESSAGE, 
+  ERROR_AUTH, 
+  ERROR_DATA_AUTH, 
+  RENDER_WIDTH,
+  RENDER_START,
+  RENDER_STEP,
+  FILM_SHORT
+ } from '../../utils/const';
 
 
 function App() {
@@ -39,7 +49,12 @@ function App() {
   }, [history])
 
   React.useEffect(() => {
-    changeCardRender({ start: width > 900 ? 12 : width > 600 ? 8 : 5, step: width > 900 ? 3 : 2 });
+    changeCardRender({ 
+      start: width > RENDER_WIDTH.max ? 
+      RENDER_START.max 
+      : width > RENDER_WIDTH.min ? 
+      RENDER_START.mid 
+      : RENDER_START.min, step: width > RENDER_WIDTH.max ? RENDER_STEP.max : RENDER_STEP.min });
   }, [width])
 
   // React.useEffect(() => {
@@ -56,6 +71,8 @@ function App() {
         Redirect('/')
       })
       .finally(() => setIsChecked(true))
+
+    return (() => setIsChecked(false))
   }, [loggedIn])
 
   // React.useEffect(() => {
@@ -82,7 +99,15 @@ function App() {
 
   function checkAuth(res) {
     if (res === 401) {
-      handlerSignout()
+      setInfoMessage({ message: ERROR_AUTH, status: false, isOpen: true })
+      setTimeout(() => {
+        localStorage.clear();
+        clearInfoMessage()
+        setDataSearch({ request: '', films: [], isShortFilms: false });
+        setSavedFilms([]);
+        setLoggedIn(false)
+        Redirect('/');
+      }, 2000)
       return true
     }
     return false
@@ -91,7 +116,7 @@ function App() {
   function filterFilms(films, request, checkbox) {
     return films.filter((film) => {
       return checkbox ?
-        film.nameRU.toLowerCase().includes(request.toLowerCase()) && film.duration < 40 : film.nameRU.toLowerCase().includes(request.toLowerCase())
+        film.nameRU.toLowerCase().includes(request.toLowerCase()) && film.duration < FILM_SHORT : film.nameRU.toLowerCase().includes(request.toLowerCase())
     })
   }
 
@@ -104,7 +129,7 @@ function App() {
   }
 
   function handlerCheckbox() {
-     if (allFilms) {
+    if (allFilms) {
       const newStateShortFilms = filterFilms(allFilms, dataSearch.request, !dataSearch.isShortFilms)
       setDataSearch({ ...dataSearch, films: newStateShortFilms, isShortFilms: !dataSearch.isShortFilms });
       localStorage.setItem('prevSearch', JSON.stringify({ ...dataSearch, films: newStateShortFilms, isShortFilms: !dataSearch.isShortFilms }))
@@ -183,19 +208,18 @@ function App() {
   function handlerSaveFilm(card) {
     mainApi.saveFilm(card).then((res) => {
       setSavedFilms((films) => [...films, res])
-    }).catch((err) => checkAuth(err) && handlerSignout())
+    }).catch((err) => checkAuth(err))
   }
 
   function handlerDeleteFilm(cardId) {
     mainApi.deleteFilm(cardId).then(() => {
       setSavedFilms(savedFilms.filter((film) => film._id !== cardId))
-    }).catch((err) => checkAuth(err) && handlerSignout())
+    }).catch((err) => checkAuth(err))
   }
 
 
   function handlerSubmitRegister(dataRegister) {
     mainApi.signup(dataRegister).then(() => {
-      history.push('/movies')
       setCurrentUser(dataRegister)
       handlerSubmitLogin({ email: dataRegister.email, password: dataRegister.password })
     }
@@ -211,10 +235,11 @@ function App() {
         setLoggedIn(true)
         history.push('/movies')
       }).catch((err) => {
-        err === 401 ? setInfoMessage({ message: ERROR_AUTH, status: false, isOpen: true }) :
+        err === 401 ? setInfoMessage({ message: ERROR_DATA_AUTH, status: false, isOpen: true }) :
           setInfoMessage({ message: err.message, status: false, isOpen: true })
         setTimeout(() => clearInfoMessage(), 1500)
       })
+      .finally(() => setIsChecked(true))
   }
 
   function handlerSubmitChangeUserinfo(newUserInfo) {
