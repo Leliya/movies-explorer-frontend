@@ -34,7 +34,7 @@ function SavedMovies({
         cardsArrayCheck={allCards}
         onDelete={onDelete}
         infoMessage={infoMessage}
-        onClose={onClosePopup} />
+        onClosePopup={onClosePopup} />
     </main>
   )
 }

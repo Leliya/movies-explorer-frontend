@@ -16,7 +16,7 @@ class MainApi {
   _checkResponse(res) {
     if (obj.ok === false) {
       if (obj.status === 401) {
-        return Promise.reject(res);
+        return Promise.reject(obj.status);
       }
       return Promise.reject(res);
     }
@@ -121,8 +121,8 @@ class MainApi {
   }
 }
 const mainApi = new MainApi({
-  //baseUrl: "http://localhost:3001/",
-  baseUrl: MAIN_URL,
+  baseUrl: "http://localhost:3001/",
+  //baseUrl: MAIN_URL,
   headers: {
     "Content-Type": "application/json",
   },

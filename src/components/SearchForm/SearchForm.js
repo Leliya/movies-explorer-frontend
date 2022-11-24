@@ -13,7 +13,7 @@ function SearchForm({ onSubmit, checkbox, onCheck, onChangeRequest, request }) {
   }
 
   return (
-    <form className="searchBar" name="searchBar" onSubmit={handlerSubmit}>
+    <form className="searchBar" name="searchBar" onSubmit={handlerSubmit} noValidate>
       <fieldset className="searchBar__box">
         <input
           className="searchBar__input"
@@ -24,7 +24,7 @@ function SearchForm({ onSubmit, checkbox, onCheck, onChangeRequest, request }) {
           value={request}
           onChange={handlerChange}>
         </input>
-        <button className="searchBar__button" type="submit" name="Отправить" disabled={!request}></button>
+        <button className="searchBar__button" type="submit" name="Отправить" ></button>
       </fieldset>
       <FilterCheckbox checkbox={checkbox} onCheck={onCheck} />
     </form>

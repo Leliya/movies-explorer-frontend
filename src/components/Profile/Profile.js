@@ -30,7 +30,7 @@ function Profile({ onSubmit, onSignout, infoMessage, onClosePopup }) {
             Имя
             <input
               className={validate.isValid.name ? "profile__input" : "profile__input profile__input_error"}
-              value={validate.values.name || ""}
+              value={validate.values.name?validate.values.name:currentUser.name}
               name="name"
               id="name"
               minLength={2}
@@ -38,7 +38,8 @@ function Profile({ onSubmit, onSignout, infoMessage, onClosePopup }) {
               type="text"
               autoFocus={true}
               onChange={validate.handleChange}
-              placeholder={currentUser.name}
+              //placeholder={currentUser.name}
+              placeholder="Введите имя пользователя"
             >
             </input>
             {validate.isValid.name ? <></> : <span className="profile__input-error">
@@ -49,12 +50,12 @@ function Profile({ onSubmit, onSignout, infoMessage, onClosePopup }) {
             E-mail
             <input
               className={validate.isValid.email ? "profile__input" : "profile__input profile__input_error"}
-              value={validate.values.email || ""}
+              value={validate.values.email || currentUser.name}
               name="email"
               id="email"
               type="email"
               onChange={validate.handleChange}
-              placeholder={currentUser.email}
+              placeholder="Введите email"
             >
             </input>
             {validate.isValid.email ? <></> : <span className="profile__input-error">

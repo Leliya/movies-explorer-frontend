@@ -15,7 +15,8 @@ function Movies({
   onDelete,
   onChangeRequest,
   onChangeDataSearch,
-  infoMessage }) {
+  infoMessage, 
+  onClosePopup}) {
   const [visibleCards, setVisibleCards] = React.useState([]);
 
   React.useEffect(() => {
@@ -39,8 +40,8 @@ function Movies({
       {isLoading ?
         <Preloader /> :
         <>
-          <MoviesCardList cardsArrayMain={visibleCards} onSaveFilm={onSaveFilm} cardsArrayCheck={savedFilms} onDelete={onDelete} infoMessage={infoMessage} />
-          {visibleCards.length !== dataSearch.films.length ? <button type="button" className="movies__button" onClick={renderMoreCards}>Ещё</button> :
+          <MoviesCardList cardsArrayMain={visibleCards} onSaveFilm={onSaveFilm} cardsArrayCheck={savedFilms} onDelete={onDelete} infoMessage={infoMessage} onClosePopup={onClosePopup}/>
+          {visibleCards.length !== dataSearch.films.length&&!infoMessage.message?<button type="button" className="movies__button" onClick={renderMoreCards}>Ещё</button> :
             <></>}
         </>}
     </main>

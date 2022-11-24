@@ -16,7 +16,7 @@ import './App.css';
 import DetectCurrentWidth from "../../utils/detectWidth";
 import ProtectedRoute from '../ProtectedRoute.js/ProtectedRoute';
 import Preloader from '../Preloader/Preloader';
-import { DEFAULT_MESSAGE, SUCCESS_CHANGE_MESSAGE } from '../../utils/const';
+import { DEFAULT_MESSAGE, SUCCESS_CHANGE_MESSAGE, REQUEST_EMPTY_MESSAGE, ERROR_AUTH } from '../../utils/const';
 
 
 function App() {
@@ -31,16 +31,20 @@ function App() {
   const [dataSearch, setDataSearch] = React.useState({ request: '', films: [], isShortFilms: false });
   const [savedFilms, setSavedFilms] = React.useState([]);
   const [dataSearchSaveFilms, setDataSearchSaveFilms] = React.useState({ request: '', films: [], isShortFilms: false });
-  const [infoMessage, setInfoMessage] = React.useState({ message: '', status: true });
+  const [infoMessage, setInfoMessage] = React.useState({ message: '', status: true, isOpen: false });
 
+
+  React.useEffect(() => {
+    setAllFilms(JSON.parse(localStorage.getItem("beatfilms")))
+  }, [history])
 
   React.useEffect(() => {
     changeCardRender({ start: width > 900 ? 12 : width > 600 ? 8 : 5, step: width > 900 ? 3 : 2 });
   }, [width])
 
-  React.useEffect(() => {
-    setInfoMessage({ message: '', status: true });
-  }, [history])
+  // React.useEffect(() => {
+  //   setInfoMessage({ message: '', status: true, isOpen: false });
+  // }, [history])
 
   React.useEffect(() => {
     mainApi.getUser()
@@ -48,21 +52,23 @@ function App() {
         setLoggedIn(true)
         setCurrentUser(userInfo)
       })
-      .catch(() => {     
+      .catch(() => {
         Redirect('/')
       })
-      .finally(()=>setIsChecked(true))
-  }, [])
-
-  React.useEffect(() => {
-    if (loggedIn) {
-      moviesApi.getFilms()
-        .then((films) => {
-          setAllFilms(films);
-        })
-        .catch(() => setInfoMessage({ message: DEFAULT_MESSAGE, status: true }))
-    }
+      .finally(() => setIsChecked(true))
   }, [loggedIn])
+
+  // React.useEffect(() => {
+  //   if (loggedIn) {
+  //     moviesApi.getFilms()
+  //       .then((films) => {
+  //         setAllFilms(films);
+  //       })
+  //       .catch(() => setInfoMessage({ message: DEFAULT_MESSAGE, status: true }))
+  //   }
+  // }, [loggedIn])
+
+
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -70,9 +76,17 @@ function App() {
         .then((films) => {
           setSavedFilms(films)
         })
-        .catch((err) => setInfoMessage({ message: err.message, status: true }))
+        .catch((err) => checkAuth(err) && setInfoMessage({ message: err.message, status: false, isOpen: false }))
     }
   }, [loggedIn])
+
+  function checkAuth(res) {
+    if (res === 401) {
+      handlerSignout()
+      return true
+    }
+    return false
+  }
 
   function filterFilms(films, request, checkbox) {
     return films.filter((film) => {
@@ -90,9 +104,15 @@ function App() {
   }
 
   function handlerCheckbox() {
-    const newStateShortFilms = filterFilms(allFilms, dataSearch.request, !dataSearch.isShortFilms)
-    setDataSearch({ ...dataSearch, films: newStateShortFilms, isShortFilms: !dataSearch.isShortFilms });
-    localStorage.setItem('prevSearch', JSON.stringify({ ...dataSearch, films: newStateShortFilms, isShortFilms: !dataSearch.isShortFilms }))
+     if (allFilms) {
+      const newStateShortFilms = filterFilms(allFilms, dataSearch.request, !dataSearch.isShortFilms)
+      setDataSearch({ ...dataSearch, films: newStateShortFilms, isShortFilms: !dataSearch.isShortFilms });
+      localStorage.setItem('prevSearch', JSON.stringify({ ...dataSearch, films: newStateShortFilms, isShortFilms: !dataSearch.isShortFilms }))
+    }
+    else {
+      setDataSearch({ ...dataSearch, isShortFilms: !dataSearch.isShortFilms });
+      localStorage.setItem('prevSearch', JSON.stringify({ ...dataSearch, isShortFilms: !dataSearch.isShortFilms }))
+    }
   }
 
   function handlerChangeSearchSavedFilms(newDataSearch) {
@@ -109,20 +129,42 @@ function App() {
   }
 
   function handlerSubmitSearchForm() {
+    clearInfoMessage()
+    if (!dataSearch.request) {
+      setInfoMessage({ message: REQUEST_EMPTY_MESSAGE, status: false, isOpen: true })
+      setTimeout(() => setInfoMessage({ message: REQUEST_EMPTY_MESSAGE, status: false, isOpen: false }), 3000)
+      return
+    }
     setIsLoading(true)
     const filmPromise = new Promise((res, rej) => {
-      return res(filterFilms(allFilms, dataSearch.request, dataSearch.isShortFilms))
+      if (!localStorage.getItem("beatfilms")) {
+        moviesApi.getFilms()
+          .then((films) => {
+            setAllFilms(films)
+            localStorage.setItem('beatfilms', JSON.stringify(films))
+            return res(filterFilms(films, dataSearch.request, dataSearch.isShortFilms))
+          })
+      } else {
+        return res(filterFilms(allFilms, dataSearch.request, dataSearch.isShortFilms))
+      }
     })
     filmPromise.then((res) => {
       setDataSearch({ ...dataSearch, films: res })
       localStorage.setItem('prevSearch', JSON.stringify({ ...dataSearch, films: res }))
     })
       .finally(() => setIsLoading(false))
-      .catch(() => setInfoMessage({ message: DEFAULT_MESSAGE, status: true }))
+      .catch((err) => checkAuth(err) && setInfoMessage({ message: DEFAULT_MESSAGE, status: false, isOpen: false }))
   }
 
   function handlerFilterSavedFilm() {
+    clearInfoMessage()
+    if (!dataSearchSaveFilms.request) {
+      setInfoMessage({ message: REQUEST_EMPTY_MESSAGE, status: false, isOpen: true })
+      //setTimeout(()=>setInfoMessage({ message: REQUEST_EMPTY_MESSAGE, status: false, isOpen: false }), 3000)
+      return
+    }
     setIsLoading(true)
+
     const filmSavedPromise = new Promise((res, rej) => {
       return res(filterFilms(
         savedFilms,
@@ -133,19 +175,21 @@ function App() {
       ...dataSearchSaveFilms,
       films: res
     }))
-      .catch((err) => setInfoMessage({ message: err.message, status: true }))
+      .catch((err) => checkAuth(err) && setInfoMessage({ message: err.message, status: false, isOpen: false }))
       .finally(() => setIsLoading(false))
+
   }
+
   function handlerSaveFilm(card) {
     mainApi.saveFilm(card).then((res) => {
       setSavedFilms((films) => [...films, res])
-    }).catch(() => setInfoMessage({ message: DEFAULT_MESSAGE, status: false }))
+    }).catch((err) => checkAuth(err) && handlerSignout())
   }
 
   function handlerDeleteFilm(cardId) {
     mainApi.deleteFilm(cardId).then(() => {
       setSavedFilms(savedFilms.filter((film) => film._id !== cardId))
-    }).catch(() => setInfoMessage({ message: DEFAULT_MESSAGE, status: false }))
+    }).catch((err) => checkAuth(err) && handlerSignout())
   }
 
 
@@ -153,10 +197,12 @@ function App() {
     mainApi.signup(dataRegister).then(() => {
       history.push('/movies')
       setCurrentUser(dataRegister)
-      handlerSubmitLogin({email:dataRegister.email, password:dataRegister.password})
+      handlerSubmitLogin({ email: dataRegister.email, password: dataRegister.password })
     }
-    ).catch((err) => {setInfoMessage({ message: err.message, status: false })
-    setTimeout(() => { setInfoMessage({ message: '', status: true }) }, 1500)})
+    ).catch((err) => {
+      setInfoMessage({ message: err.message, status: false, isOpen: true })
+      setTimeout(() => clearInfoMessage(), 1500)
+    })
   }
 
   function handlerSubmitLogin(dataLogin) {
@@ -165,16 +211,22 @@ function App() {
         setLoggedIn(true)
         history.push('/movies')
       }).catch((err) => {
-        setInfoMessage({ message: err.message, status: false })
-        setTimeout(() => { setInfoMessage({ message: '', status: true }) }, 1500)})
+        err === 401 ? setInfoMessage({ message: ERROR_AUTH, status: false, isOpen: true }) :
+          setInfoMessage({ message: err.message, status: false, isOpen: true })
+        setTimeout(() => clearInfoMessage(), 1500)
+      })
   }
 
   function handlerSubmitChangeUserinfo(newUserInfo) {
     mainApi.changeUserData(newUserInfo).then(() => {
       setCurrentUser(newUserInfo)
-      setInfoMessage({ message: SUCCESS_CHANGE_MESSAGE, status: true })
-      setTimeout(() => { setInfoMessage({ message: '', status: true }) }, 3000)
-    }).catch((err) => setInfoMessage({ message: err.message, status: false }))
+      setInfoMessage({ message: SUCCESS_CHANGE_MESSAGE, status: true, isOpen: true })
+      setTimeout(() => clearInfoMessage(), 3000)
+
+    }).catch((err) => {
+      setInfoMessage({ message: err.message, status: false, isOpen: true })
+      setTimeout(() => clearInfoMessage(), 1500)
+    })
   }
 
   function handlerSignout() {
@@ -184,27 +236,27 @@ function App() {
         setDataSearch({ request: '', films: [], isShortFilms: false });
         localStorage.clear();
         Redirect('/');
-      }).catch((err) => setInfoMessage({ message: err.message, status: false }))
+      }).catch((err) => setInfoMessage({ message: err.message, status: false, isOpen: false }))
   }
 
-  function handlerClosePopup() {
-    setInfoMessage({ message: '', status: true })
+  function clearInfoMessage() {
+    setInfoMessage({ message: '', status: true, isOpen: false })
   }
 
   return (
     <div className="page">
       <Switch>
         <Route exact path="/signup">
-        {loggedIn ?<Redirect to='/movies'/>:<Register
+          {loggedIn ? <Redirect to='/movies' /> : <Register
             onSubmit={handlerSubmitRegister}
             infoMessage={infoMessage}
-            onClosePopup={handlerClosePopup} />}
+            onClosePopup={clearInfoMessage} />}
         </Route>
         <Route exact path="/signin">
-        {loggedIn ?<Redirect to='/movies'/>:<Login
+          {loggedIn ? <Redirect to='/movies' /> : <Login
             onSubmit={handlerSubmitLogin}
             infoMessage={infoMessage}
-            onClosePopup={handlerClosePopup} />}
+            onClosePopup={clearInfoMessage} />}
         </Route>
         <CurrentUserContext.Provider value={currentUser}>
           <Switch>
@@ -213,7 +265,7 @@ function App() {
               <Main />
               <Footer />
             </Route>
-            {isChecked ? 
+            {isChecked ?
               <ProtectedRoute
                 exact
                 path="/movies"
@@ -230,9 +282,9 @@ function App() {
                 onChangeRequest={handlerChangeRequest}
                 onChangeDataSearch={handlerChangeDataSearch}
                 infoMessage={infoMessage}
-                onClosePopup={handlerClosePopup}
-              /> 
-              : <Preloader />} 
+                onClosePopup={clearInfoMessage}
+              />
+              : <Preloader />}
             {isChecked ?
               <ProtectedRoute
                 exact
@@ -248,7 +300,7 @@ function App() {
                 onChangeRequest={handlerChangeRequestSaveFilms}
                 onChangeDataSearch={handlerChangeSearchSavedFilms}
                 infoMessage={infoMessage}
-                onClosePopup={handlerClosePopup}
+                onClosePopup={clearInfoMessage}
               /> : <Preloader />}
             <ProtectedRoute
               exact
@@ -258,7 +310,7 @@ function App() {
               onSubmit={handlerSubmitChangeUserinfo}
               onSignout={handlerSignout}
               infoMessage={infoMessage}
-              onClosePopup={handlerClosePopup}
+              onClosePopup={clearInfoMessage}
             />
             {isChecked ?
               <Route path="*">
