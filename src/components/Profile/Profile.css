@@ -80,10 +80,6 @@
   top: 35px;
 }
 
-.profile__input_error {
-  color: #ff4062;
-}
-
 .profile__buttons {
   display: flex;
   flex-direction: column;
@@ -100,14 +96,6 @@
   padding: 0;
   transition: opacity 0.3s ease-in-out;
 }
-
-/* .profile__button_edit {
-  margin: 0;
-  height: 45px;
-  background-color: #000;
-  border-radius: 3px;
-  color: #fff;
-} */
 
 .profile__button:hover {
   cursor: pointer;

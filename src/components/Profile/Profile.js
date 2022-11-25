@@ -2,23 +2,45 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import './Profile.css'
-import useFormWithValidate from "../../utils/useFormWithValidate";
 import PopupWithError from '../PopupWithError/PopupWithError';
+import { regExpName } from '../../utils/regExp';
+import { MESSAGE_ERROR_EMAIL, MESSAGE_ERROR_NAME, MESSAGE_ERROR_IDENTIC } from '../../utils/const'
 
-function Profile({ onSubmit, onSignout, infoMessage, onClosePopup }) {
+function Profile({ onSubmit, onSignout, infoMessage, onClosePopup, isLoading }) {
+  const validator = require("email-validator");
   const currentUser = React.useContext(CurrentUserContext);
-  const validate = useFormWithValidate();
+  const [userInfo, setUserInfo] = React.useState({ name: currentUser.name, email: currentUser.email });
+  const [isValid, setIsValid] = React.useState({ name: false, email: false });
+  const [errors, setErrors] = React.useState({ name: '', email: '' });
+  const [isButtonDisable, setIsButtonDisable] = React.useState(true);
 
-  // React.useEffect(() => validate.resetForm(), [])
+//   React.useEffect(() =>{
+//     setIsValid({ name: true, email: true })
+// }, [])
+
+React.useEffect(() =>{
+  setIsButtonDisable(!(isValid.name&&isValid.email))
+}, [isValid])
+
+
+  function handleChange(evt) {
+    const target = evt.target;
+    const name = target.name;
+    const value = target.value;
+    const isNonIdentic = value !== currentUser[name]
+    setUserInfo({ ...userInfo, [name]: value })
+    setIsValid({ ...isValid, [name]: validate(target, name, value, isNonIdentic) })
+    setErrors({ ...errors, [name]: target.validationMessage || (!isNonIdentic ? MESSAGE_ERROR_IDENTIC : name === 'name' ? MESSAGE_ERROR_NAME : MESSAGE_ERROR_EMAIL) })
+  }
+
+  const validate = (target, name, value, isNonIdentic) => {
+    return name === 'name' ? target.validity.valid && isNonIdentic && value && !regExpName.test(value) :
+      target.validity.valid && isNonIdentic && value && validator.validate(value)
+  }
 
   function handlerSubmit(evt) {
     evt.preventDefault()
-    if (!validate.values.name) {
-      validate.values.name = currentUser.name
-    } else if (!validate.values.email) {
-      validate.values.email = currentUser.email
-    }
-    onSubmit(validate.values)
+    onSubmit(userInfo)
   }
 
   return (
@@ -29,37 +51,38 @@ function Profile({ onSubmit, onSignout, infoMessage, onClosePopup }) {
           <label className="profile__label" htmlFor='name'>
             Имя
             <input
-              className={validate.isValid.name ? "profile__input" : "profile__input profile__input_error"}
-              value={validate.values.name?validate.values.name:currentUser.name}
+              className="profile__input"
+              value={userInfo.name || ''}
               name="name"
               id="name"
               minLength={2}
               maxLength={30}
               type="text"
               autoFocus={true}
-              onChange={validate.handleChange}
-              //placeholder={currentUser.name}
+              onChange={handleChange}
+              disabled={isLoading}
               placeholder="Введите имя пользователя"
             >
             </input>
-            {validate.isValid.name ? <></> : <span className="profile__input-error">
-              {validate.errors.name}
+            {isValid.name ? <></> : <span className="profile__input-error">
+              {errors.name}
             </span>}
           </label>
           <label className="profile__label" htmlFor='email' lang="en">
             E-mail
             <input
-              className={validate.isValid.email ? "profile__input" : "profile__input profile__input_error"}
-              value={validate.values.email || currentUser.name}
+              className="profile__input"
+              value={userInfo.email || ''}
               name="email"
               id="email"
               type="email"
-              onChange={validate.handleChange}
+              onChange={handleChange}
+              disabled={isLoading}
               placeholder="Введите email"
             >
             </input>
-            {validate.isValid.email ? <></> : <span className="profile__input-error">
-              {validate.errors.email}
+            {isValid.email ? <></> : <span className="profile__input-error">
+              {errors.email}
             </span>}
           </label>
         </form>
@@ -68,8 +91,8 @@ function Profile({ onSubmit, onSignout, infoMessage, onClosePopup }) {
             className="profile__button"
             type="submit"
             form="profile"
-
-            disabled={validate.isButtonDisable ? !(validate.values.name !== currentUser.name || validate.values.email !== currentUser.email) : true}>
+            disabled={isButtonDisable || isLoading}
+          >
             Редактировать
           </button>
           <Link className="profile__exit" to="/" onClick={onSignout}>Выйти из аккаунта</Link>

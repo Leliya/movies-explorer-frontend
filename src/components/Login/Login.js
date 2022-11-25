@@ -8,8 +8,6 @@ import PopupWithError from "../PopupWithError/PopupWithError";
 function Login({ onSubmit, infoMessage, onClosePopup }) {
   const validate = useFormWithValidate();
 
-  //React.useEffect(() => validate.resetForm(), [])
-
   function handlerFormSubmit(evt) {
     evt.preventDefault();
     onSubmit(validate.values)

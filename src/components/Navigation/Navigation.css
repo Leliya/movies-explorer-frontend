@@ -146,7 +146,7 @@
     visibility: hidden;
     opacity: 0;
     width: calc(100% - 86px);
-    transition: visibility 0s ease-in-out 1s, opacity .5s ease-in-out;
+    transition: visibility 0s ease-in-out 1s, opacity 1s ease-in-out;
   }
 
   .menu_opened {
@@ -160,7 +160,7 @@
   .menu_opened::before {
     visibility: visible;
     opacity: 0.3;
-    /* transition: visibility 0s ease-in-out, opacity 1s ease-in-out; */
+    transition: visibility 0s ease-in-out 1s, opacity 1s ease-in-out;
   }
 
   .menu__links {

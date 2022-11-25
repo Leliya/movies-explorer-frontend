@@ -7,8 +7,6 @@ import useFormWithValidate from "../../utils/useFormWithValidate";
 function Register({ onSubmit, infoMessage, onClosePopup }) {
   const validate = useFormWithValidate();
 
-  //React.useEffect(() => validate.resetForm(), [])
-
   function handlerFormSubmit(evt) {
     evt.preventDefault();
     onSubmit(validate.values)

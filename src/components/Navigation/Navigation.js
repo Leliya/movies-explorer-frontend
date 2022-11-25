@@ -3,15 +3,6 @@ import React from "react";
 import './Navigation.css';
 
 function Navigation({ isMenuOpened, isClose }) {
-  //   const [isMenuOpened, setMenuOpened] = React.useState(false);
-
-  // function isClose() {
-  //   setMenuOpened(false);
-  // }
-
-  // function isOpen() {
-  //   setMenuOpened(true);
-  // }
 
   return (
     <nav className={`menu ${isMenuOpened ? "menu_opened" : ""}`}>
@@ -22,25 +13,29 @@ function Navigation({ isMenuOpened, isClose }) {
           <NavLink
             exact to='/'
             activeClassName={`menu__link_active ${isMenuOpened ? "menu__link_active_opened" : ""}`}
-            className={`menu__link ${isMenuOpened ? "menu__link_opened" : ""}`}>
+            className={`menu__link ${isMenuOpened ? "menu__link_opened" : ""}`}
+            onClick={isClose}>
             Главная
           </NavLink> : <></>}
         <NavLink
           to="/movies"
           activeClassName={`menu__link_active ${isMenuOpened ? "menu__link_active_opened" : ""}`}
-          className={`menu__link ${isMenuOpened ? "menu__link_opened" : ""}`}>
+          className={`menu__link ${isMenuOpened ? "menu__link_opened" : ""}`}
+          onClick={isClose}>
           Фильмы
         </NavLink>
         <NavLink
           to="/saved-movies"
           activeClassName={`menu__link_active ${isMenuOpened ? "menu__link_active_opened" : ""}`}
-          className={`menu__link ${isMenuOpened ? "menu__link_opened" : ""}`}>
+          className={`menu__link ${isMenuOpened ? "menu__link_opened" : ""}`}
+          onClick={isClose}>
           Сохраненные фильмы
         </NavLink>
       </ul>
       <Link
         to='/profile'
-        className={`menu__profile ${isMenuOpened ? "menu__profile_opened" : ""}`}>
+        className={`menu__profile ${isMenuOpened ? "menu__profile_opened" : ""}`}
+        onClick={isClose}>
         Аккаунт
         <div className="menu__profile-icon"></div>
       </Link>

@@ -57,10 +57,6 @@ function App() {
       : RENDER_START.min, step: width > RENDER_WIDTH.max ? RENDER_STEP.max : RENDER_STEP.min });
   }, [width])
 
-  // React.useEffect(() => {
-  //   setInfoMessage({ message: '', status: true, isOpen: false });
-  // }, [history])
-
   React.useEffect(() => {
     mainApi.getUser()
       .then((userInfo) => {
@@ -74,18 +70,6 @@ function App() {
 
     return (() => setIsChecked(false))
   }, [loggedIn])
-
-  // React.useEffect(() => {
-  //   if (loggedIn) {
-  //     moviesApi.getFilms()
-  //       .then((films) => {
-  //         setAllFilms(films);
-  //       })
-  //       .catch(() => setInfoMessage({ message: DEFAULT_MESSAGE, status: true }))
-  //   }
-  // }, [loggedIn])
-
-
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -185,7 +169,6 @@ function App() {
     clearInfoMessage()
     if (!dataSearchSaveFilms.request) {
       setInfoMessage({ message: REQUEST_EMPTY_MESSAGE, status: false, isOpen: true })
-      //setTimeout(()=>setInfoMessage({ message: REQUEST_EMPTY_MESSAGE, status: false, isOpen: false }), 3000)
       return
     }
     setIsLoading(true)
@@ -243,15 +226,16 @@ function App() {
   }
 
   function handlerSubmitChangeUserinfo(newUserInfo) {
+    setIsLoading(true)
     mainApi.changeUserData(newUserInfo).then(() => {
       setCurrentUser(newUserInfo)
       setInfoMessage({ message: SUCCESS_CHANGE_MESSAGE, status: true, isOpen: true })
       setTimeout(() => clearInfoMessage(), 3000)
 
-    }).catch((err) => {
-      setInfoMessage({ message: err.message, status: false, isOpen: true })
-      setTimeout(() => clearInfoMessage(), 1500)
-    })
+    }).catch((err) => {checkAuth(err)||
+      (setInfoMessage({ message: err.message, status: false, isOpen: true })&&
+      setTimeout(() => clearInfoMessage(), 1500))
+    }).finally(()=>setIsLoading(false))
   }
 
   function handlerSignout() {
@@ -336,6 +320,7 @@ function App() {
               onSignout={handlerSignout}
               infoMessage={infoMessage}
               onClosePopup={clearInfoMessage}
+              isLoading={isLoading}
             />
             {isChecked ?
               <Route path="*">
