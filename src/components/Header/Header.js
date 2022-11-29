@@ -4,10 +4,7 @@ import Navigation from '../Navigation/Navigation'
 import Logo from "../Logo/Logo";
 import './Header.css';
 
-function Header() {
-  // Временный код для проверки состояния
-  const loggedIn = true;
-
+function Header({loggedIn}) {
   const [isMenuOpened, setMenuOpened] = React.useState(false);
 
   function isClose() {
@@ -17,7 +14,6 @@ function Header() {
   function isOpen() {
     setMenuOpened(true);
   }
-  //
 
   return (
     <header className="header">

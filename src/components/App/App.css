@@ -12,7 +12,9 @@
     ". main ."
     ". form ."
     ". movies ."
+    ". preloader ."
     ". footer .";
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
@@ -28,6 +30,7 @@
       ". . main . ."
       ". . form . ."
       ". movies movies movies ."
+      ". . preloader . ."
       ". footer footer footer .";
   }
 }
@@ -40,6 +43,7 @@
       ". main ."
       ". form ."
       "movies movies movies"
+      ". preloader ."
       "footer footer footer";
   }
 }

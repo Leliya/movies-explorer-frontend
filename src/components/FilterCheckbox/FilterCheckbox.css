@@ -34,6 +34,7 @@
 .checkbox__button {
   width: 36px;
   height: 20px;
+  border: none;
   background-color: #2be080;
   border-radius: 20px;
   margin-left: auto;

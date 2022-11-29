@@ -1,0 +1,14 @@
+export const MAIN_URL = "https://api.movies.leliya.nomoredomains.icu/";
+export const BEATFILM_URL = "https://api.nomoreparties.co/beatfilm-movies";
+export const REQUEST_EMPTY_MESSAGE = "Нужно ввести ключевое слово";
+export const DEFAULT_MESSAGE = "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз";
+export const SUCCESS_CHANGE_MESSAGE = "Данные пользователя успешно изменены";
+export const ERROR_DATA_AUTH = "Неправильные почта или пароль";
+export const ERROR_AUTH = "Ошибка авторизации";
+export const RENDER_WIDTH = { max: 900, min: 600 }
+export const RENDER_START = { max: 12, mid: 8, min: 5 }
+export const RENDER_STEP = { max: 3, min: 2 }
+export const FILM_SHORT = 40
+export const MESSAGE_ERROR_NAME = "Имя может содержать буквы русского или английского алфавита, пробел или дефис"
+export const MESSAGE_ERROR_EMAIL = "Введен некорректный email, проверьте введенные данные"
+export const MESSAGE_ERROR_IDENTIC = "Новые данные должны отличаться от текущих"

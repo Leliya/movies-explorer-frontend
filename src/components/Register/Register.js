@@ -2,24 +2,59 @@ import Input from "../Input/Input";
 import PageWithForm from "../PageWithForm/PageWithForm";
 import PopupWithError from "../PopupWithError/PopupWithError";
 import React from "react";
+import useFormWithValidate from "../../utils/useFormWithValidate";
 
-function Register() {
-  const [isOpenPopup, setIsOpenPopup] = React.useState(true)
+function Register({ onSubmit, infoMessage, onClosePopup }) {
+  const validate = useFormWithValidate();
 
-  function handlerClosePopup() {
-    setIsOpenPopup(false)
+  function handlerFormSubmit(evt) {
+    evt.preventDefault();
+    onSubmit(validate.values)
   }
 
   return (
     <>
       <PageWithForm
-        title="Добро пожаловать!" name="register" buttonName="Зарегистрироваться" caption="Уже зарегистрированы?" path="/signin" link="Войти">
-        <Input type="text" name="name" label="Имя" isValid={true} autoFocus={true} />
-        <Input type="email" name="email" label="E-mail" isValid={true} />
-        <Input type="password" name="password" label="Пароль" isValid={false} />
-
+        title="Добро пожаловать!"
+        name="register"
+        buttonName="Зарегистрироваться"
+        caption="Уже зарегистрированы?"
+        path="/signin"
+        link="Войти"
+        onSubmit={handlerFormSubmit}
+        isFormValid={validate.isFormValid}>
+        <Input
+          type="text"
+          name="name"
+          label="Имя"
+          isValid={validate.isValid.name}
+          autoFocus={true}
+          value={validate.values.name}
+          onChange={validate.handleChange}
+          error={validate.errors.name}
+          minSymbol={2}
+          maxSymbol={30}
+        />
+        <Input
+          type="email"
+          name="email"
+          label="E-mail"
+          isValid={validate.isValid.email}
+          value={validate.values.email}
+          onChange={validate.handleChange}
+          error={validate.errors.email}
+        />
+        <Input
+          type="password"
+          name="password"
+          label="Пароль"
+          isValid={validate.isValid.password}
+          value={validate.values.password}
+          onChange={validate.handleChange}
+          error={validate.errors.password}
+        />
       </PageWithForm>
-      <PopupWithError message="Кажется что-то пошло не так, попробуйте еще раз" isOpen={isOpenPopup} onClose={handlerClosePopup} />
+      <PopupWithError infoMessage={infoMessage} onClose={onClosePopup} />
     </>
   )
 }
