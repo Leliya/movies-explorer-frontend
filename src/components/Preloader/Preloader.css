@@ -45,10 +45,11 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: calc(100vh - 465px);
   z-index: 10;
   padding: 20px;
   box-sizing: border-box;
+  margin-top: auto;
+  height: 100%;
 }
 
 .preloader__container {

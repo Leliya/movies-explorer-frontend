@@ -1,4 +1,4 @@
-import { MAIN_URL } from "../utils/const.js"
+const { REACT_APP_BACK = "http://localhost:4000/"} = process.env;
 
 let obj = {}
 
@@ -121,8 +121,7 @@ class MainApi {
   }
 }
 const mainApi = new MainApi({
-  //baseUrl: "http://localhost:3001/",
-  baseUrl: MAIN_URL,
+  baseUrl: REACT_APP_BACK,
   headers: {
     "Content-Type": "application/json",
   },

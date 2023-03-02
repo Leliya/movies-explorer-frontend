@@ -23,6 +23,7 @@ function Movies({
     if (localStorage.getItem('prevSearch')) {
       onChangeDataSearch(JSON.parse(localStorage.getItem('prevSearch')))
     }
+    // eslint-disable-next-line
   }, [])
 
   React.useEffect(() => {

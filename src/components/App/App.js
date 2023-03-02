@@ -79,6 +79,7 @@ function App() {
         })
         .catch((err) => checkAuth(err) && setInfoMessage({ message: err.message, status: false, isOpen: false }))
     }
+    // eslint-disable-next-line
   }, [loggedIn])
 
   function checkAuth(res) {

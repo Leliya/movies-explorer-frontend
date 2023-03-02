@@ -19,6 +19,7 @@ function SavedMovies({
 
   React.useEffect(() => {
     onChangeDataSearch({ request: '', films: savedFilms, isShortFilms: false })
+    // eslint-disable-next-line
   }, [savedFilms])
 
   return (
